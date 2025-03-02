@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+		<link rel="stylesheet" href="../static/css/login.css">
+		<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+		<script src="../static/js/login.js"></script>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                        <div class="login-card fade-in">
+                            <h1 class="title has-text-centered has-text-primary mb-5">Login</h1>
+                            {% if error_message %}
+                            <div class="notification is-danger">
+                                {{ error_message }}
+                            </div>
+                            {% endif %}
+                            <form action="{{ url_for('post_login') }}" method="post">
+                                <div class="field">
+                                    <label for="username" class="label">Name</label>
+                                    <div class="control has-icons-left">
+                                        <input type="name" id="username" name="username" placeholder="e.g. Alex Smith" class="input" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="password" class="label">Password</label>
+                                    <div class="control has-icons-left">
+                                        <input type="password" id="password" name="password" placeholder="********" class="input" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <button class="button is-primary is-fullwidth" type="submit">Login</button>
+                                </div>
+                            </form>
+                            <div class="has-text-centered mt-4">
+                                <p>Don't have an account? <a href="{{ url_for('get_signup') }}" class="has-text-primary">Sign up</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

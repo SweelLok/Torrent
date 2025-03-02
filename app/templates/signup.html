@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/signup.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="../static/js/signup.js"></script>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                        <div class="signup-card fade-in">
+                            <h1 class="title has-text-centered has-text-primary mb-5">Sign Up</h1>
+                            {% if error_message %}
+                            <div class="notification is-danger">
+                                {{ error_message }}
+                            </div>
+                            {% endif %}
+                            <form action="{{ url_for('post_signup') }}" method="post">
+                                <div class="field">
+                                    <label for="name" class="label">Name</label>
+                                    <div class="control has-icons-left">
+                                        <input type="text" id="username" name="username" placeholder="e.g. Alex Smith" class="input" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="password" class="label">Password</label>
+                                    <div class="control has-icons-left">
+                                        <input type="password" id="password" name="password" placeholder="********" class="input" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="confirm-password" class="label">Confirm Password</label>
+                                    <div class="control has-icons-left">
+                                        <input type="password" id="confirm-password" name="confirm-password" placeholder="********" class="input" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="terms" class="checkbox">
+                                        <input type="checkbox" id="terms" name="terms" required>
+                                        I agree to the <a href="{{ url_for('get_terms') }}" class="has-text-primary">Terms and conditions</a>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <button class="button is-primary is-fullwidth" type="submit">Sign Up</button>
+                                </div>
+                            </form>
+                            <div class="has-text-centered mt-4">
+                                <p>Already have an account? <a href="{{ url_for('get_login') }}" class="has-text-primary">Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

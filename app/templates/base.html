@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animated Navbar with Bulma</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="../static/css/style.css">
+  <script src="../static/js/style.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  {% block head %}{% endblock %}
+  <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
+{% block navbar %}
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item logo" href="#">
+        <a class="navbar-item logo" href="{{ url_for('get_menu') }}">
           <span class="logo-text">Torrent</span>
         </a>
         
@@ -32,7 +36,7 @@
             </a>
             
             <div class="navbar-dropdown is-boxed animated-dropdown">
-              <a class="navbar-item dropdown-item">
+              <a class="navbar-item dropdown-item" href="{{ url_for('get_menu') }}">
                 All Games
               </a>
               <a class="navbar-item dropdown-item">
@@ -50,47 +54,54 @@
             </a>
             
             <div class="navbar-dropdown is-boxed animated-dropdown">
-              <a class="navbar-item dropdown-item">
+              <a class="navbar-item dropdown-item" href="{{ url_for('get_profile') }}">
                 Profile
               </a>
-              <a class="navbar-item dropdown-item">
+              <a class="navbar-item dropdown-item" href="{{ url_for('get_edit_profile') }}">
                 Edit Profile
               </a>
-              <a class="navbar-item dropdown-item">
+              <a class="navbar-item dropdown-item" href="{{ url_for('get_feedback') }}">
                 Feedback
               </a>
             </div>
           </div>
           
-          <a class="navbar-item nav-link">
+          <a class="navbar-item nav-link" href="{{ url_for('get_about') }}">
             About
           </a>
-          
-          <a class="navbar-item nav-link">
-            Contact
-          </a>
+
         </div>
         
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary animated-button">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light animated-button">
-                Log in
-              </a>
+              <div class="buttons">
+                  {% if session.get('user') %}
+                      <span class="navbar-item">
+                          <strong class="user-text">{{ session['user'] }}</strong>
+                      </span>
+                      <a class="button is-light animated-button" href="{{ url_for('get_logout') }}">
+                          Log out
+                      </a>
+                  {% else %}
+                      <a class="button is-primary animated-button" href="{{ url_for('get_signup') }}">
+                          <strong>Sign up</strong>
+                      </a>
+                      <a class="button is-light animated-button" href="{{ url_for('get_login') }}">
+                          Log in
+                      </a>
+                  {% endif %}
+              </div>
             </div>
-          </div>
-        </div>
+        </div>      
       </div>
     </div>
   </nav>
+{% endblock %}
   
-  <section class="hero is-fullheight-with-navbar">
-
-  </section>
+<section class="hero is-fullheight-with-navbar">
+  {% block content %}
+  {% endblock content %}
+</section>
   
-  <script src="script.js"></script>
 </body>
 </html>

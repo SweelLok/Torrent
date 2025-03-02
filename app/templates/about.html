@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/about.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="../static/js/about.js"></script>
+{% endblock %}
+
+{% block title %} About {% endblock %}
+
+{% block content %}
+
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1 has-text-centered fade-in">
+                    About Our Project
+                </h1>
+                <p class="subtitle has-text-centered fade-in">
+                    We're a team of passionate individuals working together to create something amazing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered mb-6 fade-in">Our Team</h2>
+            <div class="columns">
+                <div class="column">
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img class="image-left" src="../static/photos/Vadym.jpeg" alt="Vadym Ukrainskyi">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-4">Vadym Ukrainskyi</p>
+                            <p class="subtitle is-6">Project Lead</p>
+                            <div class="content">
+                                Vadym is an experienced developer with expertise in backend technologies and project management.
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="https://t.me/Vadym7584241212332" class="card-footer-item">
+                                <span class="icon">
+                                    <i class="fas fa-linkedin">Telegram</i>
+                                </span>
+                            </a>
+                            <a href="https://github.com/SweelLok" class="card-footer-item">
+                                <span class="icon">
+                                    <i class="fas fa-twitter">GitHub</i>
+                                </span>
+                            </a>
+                        </footer>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card fade-in">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img class="image-right" src="../static/photos/Nazar.jpg" alt="Nazar">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-4">Nazar</p>
+                            <p class="subtitle is-6">UX Designer</p>
+                            <div class="content">
+                                Nazar is an experienced developer with expertise in frontend technologies and beautiful user experiences.
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="https://t.me/nazarkavlog" class="card-footer-item">
+                                <span class="icon">
+                                    <i class="fas fa-linkedin">Telegam</i>
+                                </span>
+                            </a>
+                            <a href="#" class="card-footer-item">
+                                <span class="icon">
+                                    <i class="fas fa-twitter">GihHub</i>
+                                </span>
+                            </a>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section has-background-light">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered mb-6 fade-in">About The Project</h2>
+            <div class="columns is-vcentered">
+                <div class="column fade-in">
+                    <h3 class="title is-3">Our Mission</h3>
+                    <p class="mb-4">
+                        We're building a platform that helps people find and get games more efficiently. Our goal is to create intuitive tools that make work more productive and enjoyable.
+                    </p>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <div class="box has-text-centered">
+                                <p class="heading">Years Experience</p>
+                                <p class="title">2+</p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="box has-text-centered">
+                                <p class="heading">Happy Users</p>
+                                <p class="title">999+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column fade-in">
+                    <figure class="image is-4by3 project-image">
+                        <img src="/placeholder.svg?height=300&width=400" alt="Project Image">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered mb-6 fade-in">Get In Touch</h2>
+            <div class="columns">
+                <div class="column is-5 fade-in">
+                    <div class="content">
+                        <div class="mb-5">
+                            <h3 class="is-size-4 mb-2">
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                Our Location
+                            </h3>
+                            <p>Ukrain, Kyiv</p>
+                        </div>
+                        <div class="mb-5">
+                            <h3 class="is-size-4 mb-2">
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                Email Us
+                            </h3>
+                            <p>ukr.vadya@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3 class="is-size-4 mb-2">
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                                Call Us
+                            </h3>
+                            <p>+380 99 532 9221</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-7 fade-in">
+                    <form action="{{ url_for('send_message') }}" method="post">
+                        <div class="field">
+                            <label class="label">Your Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="name" placeholder="e.g. Alex Smith" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Your Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" placeholder="e.g. alexsmith@gmail.com" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Message</label>
+                            <div class="control">
+                                <textarea class="textarea" name="message" placeholder="Your message here..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary is-fullwidth">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
