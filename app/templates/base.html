@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Navbar with Bulma</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item logo" href="#">
+          <span class="logo-text">Torrent</span>
+        </a>
+        
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+          
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link nav-link">
+              Games
+            </a>
+            
+            <div class="navbar-dropdown is-boxed animated-dropdown">
+              <a class="navbar-item dropdown-item">
+                All Games
+              </a>
+              <a class="navbar-item dropdown-item">
+                Favorite Games
+              </a>
+              <a class="navbar-item dropdown-item">
+                Most Popular Games
+              </a>
+            </div>
+          </div>
+          
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link nav-link">
+              Services
+            </a>
+            
+            <div class="navbar-dropdown is-boxed animated-dropdown">
+              <a class="navbar-item dropdown-item">
+                Profile
+              </a>
+              <a class="navbar-item dropdown-item">
+                Edit Profile
+              </a>
+              <a class="navbar-item dropdown-item">
+                Feedback
+              </a>
+            </div>
+          </div>
+          
+          <a class="navbar-item nav-link">
+            About
+          </a>
+          
+          <a class="navbar-item nav-link">
+            Contact
+          </a>
+        </div>
+        
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary animated-button">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light animated-button">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="hero is-fullheight-with-navbar">
+
+  </section>
+  
+  <script src="script.js"></script>
+</body>
+</html>
