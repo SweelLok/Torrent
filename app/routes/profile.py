@@ -67,7 +67,7 @@ def post_edit_profile():
 	return redirect(url_for("get_profile"))
 
 
-@app.route("/delete_account/", methods=['POST'])
+@app.route("/delete_account/", methods=["POST"])
 @login_required
 def delete_account():
 	try:
@@ -81,14 +81,14 @@ def delete_account():
 		
 		conn.commit()
 		logout_user()
-		flash('Your account has been successfully deleted.', 'success')
-		return redirect(url_for('get_login'))
+		flash("Your account has been successfully deleted.", "success")
+		return redirect(url_for("get_login"))
 		
 	except Exception as e:
 		print(f"Error deleting account: {e}")
-		flash('An error occurred while deleting your account.', 'error')
-		return redirect(url_for('get_edit_profile'))
+		flash("An error occurred while deleting your account.", "error")
+		return redirect(url_for("get_edit_profile"))
 		
 	finally:
-		if 'conn' in locals():
+		if "conn" in locals():
 			conn.close()

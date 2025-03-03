@@ -9,7 +9,7 @@ from connection import get_db_connection
 from app import app, login_manager
 
 
-@app.route("/send_message/", methods=['POST'])
+@app.route("/send_message/", methods=["POST"])
 def send_message():
     name = request.form["name"]
     email = request.form["email"]
