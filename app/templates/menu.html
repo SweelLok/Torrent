@@ -10,6 +10,7 @@
 {% block title %}Game Menu{% endblock %}
 
 {% block content %}
+
     <section class="hero is-small">
         <div class="hero-body">
             <div class="container">
@@ -21,21 +22,31 @@
 
     <section class="section">
         <div class="container">
+            <div class="field">
+                <div class="control">
+                    <form method="get" action="/menu/">
+                        <input class="input is-large" type="text" name="search" placeholder="Input filter..." value="{{ request.args.get('search', '') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
             <div class="columns is-multiline">
                 {% for game in games %}
                 <div class="column is-one-third">
                     <div class="card game-card fade-in">
                         <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="{{ game.background_image or '/static/img/default.jpg' }}" alt="{{ game.name }}">
+                            <figure class="image is-3by3">
+                                <img src="{{ game.background_image }}" alt="{{ game.name }}">
                             </figure>
                         </div>
                         <div class="card-content">
                             <p class="title is-4">{{ game.name }}</p>
-                            <p class="subtitle is-6">{{ game.released }}</p>
-                            <div class="content">
-                                {{ game.description_raw }}
-                            </div>
+                            <p class="subtitle is-6">Rating: {{ game.rating }}</p>
+                            <p class="subtitle is-6">Released: {{ game.released }}</p>
                         </div>
                         <footer class="card-footer">
                             <a href="#" class="card-footer-item">More information</a>
@@ -44,6 +55,23 @@
                 </div>
                 {% endfor %}
             </div>
+
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <ul class="pagination-list">
+                    {% set start_page = max(1, page - 12) %}
+                    {% set end_page = min(total_pages, start_page + 24) %}
+                    {% for p in range(start_page, end_page + 1) %}
+                    <li>
+                        <a class="pagination-link {% if p == page %}is-current{% endif %}" href="?page={{ p }}{% if query %}&search={{ query }}{% endif %}">{{ p }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if end_page < total_pages %}
+                    <li>
+                        <a class="pagination-link" href="?page={{ end_page + 1 }}{% if query %}&search={{ query }}{% endif %}">...</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
     </section>
 
