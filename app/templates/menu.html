@@ -1,15 +1,50 @@
 {% extends "base.html" %}
 
 {% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="../static/css/menu.css">
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-    <script src="../static/js/menu.js"></script>
+    <script src="../static/js/menu.js" defer></script>
 {% endblock %}
 
-{% block title %} Menu {% endblock %}
+{% block title %}Game Menu{% endblock %}
 
 {% block content %}
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-centered has-text-white">Game Menu</h1>
+                <p class="subtitle has-text-centered has-text-white">Choose your adventure!</p>
+            </div>
+        </div>
+    </section>
 
-
+    <section class="section">
+        <div class="container">
+            <div class="columns is-multiline">
+                {% for game in games %}
+                <div class="column is-one-third">
+                    <div class="card game-card fade-in">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{{ game.background_image or '/static/img/default.jpg' }}" alt="{{ game.name }}">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-4">{{ game.name }}</p>
+                            <p class="subtitle is-6">{{ game.released }}</p>
+                            <div class="content">
+                                {{ game.description_raw }}
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">More information</a>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

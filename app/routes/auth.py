@@ -1,7 +1,7 @@
 import sqlite3
 
-from flask import render_template, request, url_for, redirect, session, flash
-from flask_login import login_user, login_required, logout_user, current_user
+from flask import render_template, request, url_for, redirect, session, abort
+from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from connection import get_db_connection
@@ -48,6 +48,8 @@ def post_login():
     user_obj = User(user_id=user[0], username=user[1], password=user[2])
     login_user(user_obj, remember=True)
     session["user"] = user[1]
+    session["password"] = password
+
     return redirect(url_for("get_menu"))
 
 @app.get("/signup/")
@@ -98,6 +100,7 @@ def post_signup():
         user = User(user_id=user_id, username=username, password=hashed_password)
         login_user(user)
         session["user"] = username
+        session["password"] = password
 
     except sqlite3.Error as error:
         print("Error", error)
@@ -115,4 +118,5 @@ def get_terms():
 def get_logout():
     logout_user()
     session.pop("user", None)
+    session.pop("password", None)
     return redirect(url_for("get_login"))

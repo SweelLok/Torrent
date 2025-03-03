@@ -7,15 +7,14 @@ from connection import get_db_connection
 
 @app.get("/")
 def get_start():
-    if current_user.is_authenticated:
-        return redirect(url_for("get_menu"))
-    return redirect(url_for("get_login"))
+    # return redirect(url_for("swagger_ui.show"))
+    return redirect(url_for("get_games"))
 
 @app.get("/about/")
 def get_about():
     return render_template("about.html")
 
-@app.get("/menu/")
+@app.get("/swagger/")
 @login_required
-def get_menu():
-    return render_template("menu.html")
+def get_swagger():
+    return redirect(url_for("swagger_ui.show"))
