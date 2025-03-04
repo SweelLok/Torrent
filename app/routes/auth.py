@@ -1,7 +1,7 @@
 import sqlite3
 
-from flask import render_template, request, url_for, redirect, session, abort
-from flask_login import login_user, logout_user
+from flask import render_template, request, url_for, redirect, session, flash
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from connection import get_db_connection
@@ -47,10 +47,10 @@ def post_login():
         
     user_obj = User(user_id=user[0], username=user[1], password=user[2])
     login_user(user_obj, remember=True)
-    session["user"] = user[1]
+    session["username"] = user[1]
     session["password"] = password
 
-    return redirect(url_for("get_menu"))
+    return redirect(url_for("get_games"))
 
 @app.get("/signup/")
 def get_signup():
@@ -92,14 +92,14 @@ def post_signup():
         conn.commit()
         user_id = curs.lastrowid
 
-        curs.execute("""INSERT INTO profile (user_id, photo, description) 
-                       VALUES (?, ?, ?)""", 
-                    (user_id, "", ""))
+        curs.execute("""INSERT INTO profile (user_id, photo, description, favorite_games) 
+                       VALUES (?, ?, ?, ?)""", 
+                    (user_id, "", "", ""))
         conn.commit()
         
         user = User(user_id=user_id, username=username, password=hashed_password)
         login_user(user)
-        session["user"] = username
+        session["username"] = username
         session["password"] = password
 
     except sqlite3.Error as error:
@@ -117,6 +117,6 @@ def get_terms():
 @app.get("/logout/")
 def get_logout():
     logout_user()
-    session.pop("user", None)
+    session.pop("username", None)
     session.pop("password", None)
     return redirect(url_for("get_login"))

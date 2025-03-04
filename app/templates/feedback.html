@@ -10,6 +10,55 @@
 
 {% block content %}
 
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="card feedback-card fade-in">
+                    <div class="card-content">
+                        <form action="{{ url_for('post_add_feedback') }}" method="POST">
+                            {{ form.hidden_tag() }}
 
+                            <div class="field">
+                                <label class="label">Feedback Type</label>
+                                <div class="control">
+                                    {{ form.rating.label(class="label") }}
+                                    {{ form.rating(class="select") }}
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.text.label(class="label") }}
+                                    {{ form.text(class="textarea", placeholder="Please share your thoughts...") }}
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary is-fullwidth" type="submit">{{ form.submit.label.text }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column is-8">
+                {% for fb in feedback %}
+                    <div class="card feedback-card fade-in {% if fb['rating'] == 2 %}positive-feedback{% else %}negative-feedback{% endif %}">
+                        <div class="card-content">
+                            <p class="title is-4">{{ fb['text'] }}</p>
+                            <p class="subtitle is-6">Rating: {% if fb['rating'] == 2 %}Positive{% else %}Negative{% endif %}</p>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

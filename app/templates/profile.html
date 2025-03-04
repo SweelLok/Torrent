@@ -10,6 +10,36 @@
 
 {% block content %}
 
-
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="card profile-card fade-in">
+                        <div class="card-content">
+                            <div class="columns is-vcentered">
+                                <div class="column is-4">
+                                    <figure class="image is-1by1">
+                                        <img class="is-rounded profile-image" src="{{ photo }}" alt="{{ username }}'s profile picture">
+                                    </figure>
+                                </div>
+                                <div class="column">
+                                    <h2 class="title is-2">{{ username }}</h2>
+                                    <p class="subtitle is-5">{{ description }}</p>
+                                    <div class="buttons">
+                                        <button class="button is-primary">
+                                            <span class="icon">
+                                                <i class="fas fa-user-edit"></i>
+                                            </span>
+                                            <a href="{{ url_for('get_edit_profile') }}">Edit Profile</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

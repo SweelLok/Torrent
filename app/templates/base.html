@@ -75,9 +75,9 @@
         <div class="navbar-end">
           <div class="navbar-item">
               <div class="buttons">
-                  {% if session.get('user') %}
+                  {% if session.get('username') %}
                       <span class="navbar-item">
-                          <strong class="user-text">{{ session['user'] }}</strong>
+                          <strong class="user-text">{{ session['username'] }}</strong>
                       </span>
                       <a class="button is-light animated-button" href="{{ url_for('get_logout') }}">
                           Log out
