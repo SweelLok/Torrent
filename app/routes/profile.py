@@ -1,8 +1,11 @@
+import requests
+
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required, logout_user
 
 from app import app
 from connection import get_db_connection
+from ..config import RAWG_API_KEY, RAWG_BASE_URL
 
 
 @app.get("/profile/")
@@ -17,6 +20,13 @@ def get_profile():
         LEFT JOIN profile ON users.user_id = profile.user_id 
         WHERE users.user_id = ?""", (user_id,))
     profile = cursor.fetchone()
+    
+    cursor.execute("""
+        SELECT game_id 
+        FROM favorite_games 
+        WHERE user_id = ?""", (user_id,))
+    favorite_game_ids = cursor.fetchall()
+    
     conn.close()
     
     if profile:
@@ -24,7 +34,16 @@ def get_profile():
     else:
         username, photo, description = current_user.username, "", ""
     
-    return render_template("profile.html", username=username, photo=photo, description=description)
+    favorite_games = []
+    for game_id in favorite_game_ids:
+        game_id = game_id[0]
+        url = f"{RAWG_BASE_URL}/games/{game_id}?key={RAWG_API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            game = response.json()
+            favorite_games.append(game["name"])
+    
+    return render_template("profile.html", username=username, photo=photo, description=description, favorite_games=favorite_games)
 
 @app.get("/edit_profile/")
 @login_required

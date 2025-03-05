@@ -33,6 +33,14 @@
                                             <a href="{{ url_for('get_edit_profile') }}">Edit Profile</a>
                                         </button>
                                     </div>
+                                    <div class="favorite-games">
+                                        <h3 class="title is-4">Favorite Games</h3>
+                                        <ul>
+                                            {% for game in favorite_games %}
+                                                <li>{{ game }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

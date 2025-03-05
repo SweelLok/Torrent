@@ -13,7 +13,6 @@ from app import app, login_manager
 def send_message():
     name = request.form["name"]
     email = request.form["email"]
-    message = request.form["message"]
     
     send_email(email, name)
     
