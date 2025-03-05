@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/game_details.css">
+    <script src="../static/js/game_details.js" defer></script>
+    <title>Game Details</title>
+</head>
+<body>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="card game-card fade-in">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="title is-4">{{ game.name }}</p>
+                                <p class="subtitle is-6">
+                                    <span class="icon has-text-warning">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    Rating: {{ game.rating }}
+                                </p>
+                                <p>
+                                    <span class="icon has-text-info">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                    Released: {{ game.released }}
+                                </p>
+                                <p class="mt-4">{{ game.description_raw }}</p>
+                            </div>
+                            
+                            <figure class="image is-4by4 game-image mt-5">
+                                <img src="{{ game.background_image }}" alt="{{ game.name }}">
+                            </figure>
+                            
+                            <div class="buttons is-centered mt-5">
+                                <a class="button is-primary" href="{{ url_for('get_games') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </span>
+                                    <span>Back to Menu</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

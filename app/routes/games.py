@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for
 from ..config import RAWG_BASE_URL, RAWG_API_KEY
 from app import app
 import requests
@@ -32,3 +32,15 @@ def get_games():
         return render_template("menu.html", games=games, page=page, total_pages=total_pages, max=max, min=min, query=query)
     
     return render_template("menu.html", games=[], page=page, total_pages=0, max=max, min=min, query=query)
+
+@app.get("/game/<int:game_id>/")
+def get_game_details(game_id):
+    url = f"{RAWG_BASE_URL}/games/{game_id}?key={RAWG_API_KEY}"
+    
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        game = response.json()
+        return render_template("game_details.html", game=game)
+    
+    return redirect(url_for("get_games"))
