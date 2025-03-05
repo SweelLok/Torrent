@@ -1,11 +1,14 @@
-from flask import render_template, request, jsonify, redirect, url_for, flash
-from flask_login import current_user, login_required
-from ..config import RAWG_BASE_URL, RAWG_API_KEY
-from app import app
-from connection import get_db_connection
 import requests
 
-@app.get("/games_data_json/")
+from flask import render_template, request, jsonify, redirect, url_for, flash
+from flask_login import current_user, login_required
+
+from app import app
+from ..config import RAWG_BASE_URL, RAWG_API_KEY
+from connection import get_db_connection
+
+
+@app.get("/games_data_json/")       #? Route for all API data
 def get_games_json():
     query = request.args.get("search", "")
     url = f"{RAWG_BASE_URL}/games?key={RAWG_API_KEY}&search={query}"
@@ -52,7 +55,7 @@ def get_game_details(game_id):
     
     return redirect(url_for("get_games"))
 
-@app.post("/favorite_games/<int:game_id>")
+@app.post("/favorite_games/<int:game_id>/")
 @login_required
 def post_favorite_games(game_id):
     user_id = current_user.user_id
@@ -60,11 +63,9 @@ def post_favorite_games(game_id):
     cursor = conn.cursor()
     existing_favorite = cursor.execute("SELECT * FROM favorite_games WHERE user_id = ? AND game_id = ?", (user_id, game_id)).fetchone()
     if existing_favorite:
-        cursor.execute("DELETE FROM favorite_games WHERE user_id = ? AND game_id = ?", (user_id, game_id))
-        print("Game successfully removed from favorites!")
+        cursor.execute("DELETE FROM favorite_games WHERE user_id = ? AND game_id = ?", (user_id, game_id))      #? Delete favorite game
     else:
-        cursor.execute("INSERT INTO favorite_games (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
-        print("Game successfully added to favorites!")
+        cursor.execute("INSERT INTO favorite_games (user_id, game_id) VALUES (?, ?)", (user_id, game_id))       #? Add favorite game
     conn.commit()
     conn.close()
     

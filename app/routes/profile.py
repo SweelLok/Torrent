@@ -88,7 +88,6 @@ def post_edit_profile():
     else:
         cursor.execute("INSERT INTO profile (user_id, photo, description) VALUES (?, ?, ?)", 
                        (current_user.user_id, request.form["photo"], request.form["description"]))
-    
     conn.commit()
     conn.close()
     return redirect(url_for("get_profile"))
@@ -96,25 +95,12 @@ def post_edit_profile():
 @app.post("/delete_account/")
 @login_required
 def delete_account():
-	try:
-		user_id = current_user.user_id
-		conn = get_db_connection()
-		cursor = conn.cursor()
-
-		cursor.execute("PRAGMA foreign_keys = ON;")
-
-		cursor.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
-		
-		conn.commit()
-		logout_user()
-		flash("Your account has been successfully deleted.", "success")
-		return redirect(url_for("get_login"))
-		
-	except Exception as e:
-		print(f"Error deleting account: {e}")
-		flash("An error occurred while deleting your account.", "error")
-		return redirect(url_for("get_edit_profile"))
-		
-	finally:
-		if "conn" in locals():
-			conn.close()
+    user_id = current_user.user_id
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON;")
+    cursor.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
+    conn.commit()
+    conn.close()
+    logout_user()
+    return redirect(url_for("get_login"))

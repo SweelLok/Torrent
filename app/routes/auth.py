@@ -1,7 +1,7 @@
 import sqlite3
 
-from flask import render_template, request, url_for, redirect, session, flash
-from flask_login import login_user, logout_user, current_user
+from flask import render_template, request, url_for, redirect, session
+from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from connection import get_db_connection
@@ -47,8 +47,8 @@ def post_login():
         
     user_obj = User(user_id=user[0], username=user[1], password=user[2])
     login_user(user_obj, remember=True)
-    session["username"] = user[1]
-    session["password"] = password
+    session["username"] = user[1]      #?  Load Session username  
+    session["password"] = password      #?  Load Session password 
 
     return redirect(url_for("get_games"))
 
@@ -86,27 +86,18 @@ def post_signup():
             return render_template("signup.html", error_message="Username already exists")
 
     hashed_password = generate_password_hash(password)
-    try:
-        curs.execute("INSERT INTO users (username, password) VALUES (?, ?)", 
-                     (username, hashed_password))
-        conn.commit()
-        user_id = curs.lastrowid
+    curs.execute("INSERT INTO users (username, password) VALUES (?, ?)", 
+                (username, hashed_password))
+    conn.commit()
+    user_id = curs.lastrowid
 
-        curs.execute("""INSERT INTO profile (user_id, photo, description, favorite_games) 
-                       VALUES (?, ?, ?, ?)""", 
-                    (user_id, "", "", ""))
-        conn.commit()
+    curs.execute("""INSERT INTO profile (user_id, photo, description, favorite_games) #? Load profile talbe data
+                VALUES (?, ?, ?, ?)""", 
+                (user_id, "", "", ""))
+    conn.commit()
         
-        user = User(user_id=user_id, username=username, password=hashed_password)
-        login_user(user)
-        session["username"] = username
-        session["password"] = password
-
-    except sqlite3.Error as error:
-        print("Error", error)
-        return render_template("signup.html", error_message="Database error occurred")
-    finally:
-        conn.close()
+    user = User(user_id=user_id, username=username, password=hashed_password)
+    login_user(user)
     
     return redirect(url_for("get_login"))
 
@@ -117,6 +108,6 @@ def get_terms():
 @app.get("/logout/")
 def get_logout():
     logout_user()
-    session.pop("username", None)
-    session.pop("password", None)
+    session.pop("username", None)   #? Delete Session username
+    session.pop("password", None)   #? Delete Session password
     return redirect(url_for("get_login"))
