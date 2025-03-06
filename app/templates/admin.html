@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/admin.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="../static/js/admin.js" defer></script>
+{% endblock %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="card admin-card fade-in">
+                        <header class="card-header">
+                            <p class="card-header-title">User Accounts</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <table class="table is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for user_id, username in users.items() %}
+                                        <tr>
+                                            <td>{{ username }}</td>
+                                            <td>
+                                                <form method="POST" action="{{ url_for('delete_account', user_id=user_id) }}">
+                                                    <button class="button is-small is-danger" type="submit">
+                                                        <span class="icon is-small">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-half">
+                    <div class="card admin-card fade-in">
+                        <header class="card-header">
+                            <p class="card-header-title">User Feedbacks</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <table class="table is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Feedback</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for feedback in feedbacks %}
+                                        <tr>
+                                            <td>{{ feedback.username }}</td> 
+                                            <td>{{ feedback.text }}</td>
+                                            <td>
+                                                <span>
+                                                    {% if feedback.rating == 2 %}
+                                                        <span class="rating-square positive"></span>
+                                                    {% elif feedback.rating == 1 %}
+                                                        <span class="rating-square negative"></span>
+                                                    {% endif %}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ url_for('post_delete_feedback', feedback_id=feedback.id) }}">
+                                                    <button class="button is-small is-danger" type="submit">
+                                                        <span class="icon is-small">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

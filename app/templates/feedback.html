@@ -47,11 +47,11 @@
 
         <div class="columns is-centered">
             <div class="column is-8">
-                {% for fb in feedback %}
-                    <div class="card feedback-card fade-in {% if fb['rating'] == 2 %}positive-feedback{% else %}negative-feedback{% endif %}">
+                {% for feedback in feedbacks %}
+                    <div class="card feedback-card fade-in {% if feedback['rating'] == 2 %}positive-feedback{% else %}negative-feedback{% endif %}">
                         <div class="card-content">
-                            <p class="title is-4">{{ fb['text'] }}</p>
-                            <p class="subtitle is-6">Rating: {% if fb['rating'] == 2 %}Positive{% else %}Negative{% endif %}</p>
+                            <p class="title is-4">{{ feedback['text'] }}</p>
+                            <p class="subtitle is-6">Rating: {% if feedback['rating'] == 2 %}Positive{% else %}Negative{% endif %}</p>
                         </div>
                     </div>
                     <br>

@@ -47,6 +47,7 @@ def post_login():
         
     user_obj = User(user_id=user[0], username=user[1], password=user[2])
     login_user(user_obj, remember=True)
+    session["user_id"] = user[0]      #? Load Session user_id
     session["username"] = user[1]      #?  Load Session username  
     session["password"] = password      #?  Load Session password 
 
@@ -91,7 +92,7 @@ def post_signup():
     conn.commit()
     user_id = curs.lastrowid
 
-    curs.execute("""INSERT INTO profile (user_id, photo, description, favorite_games) #? Load profile talbe data
+    curs.execute("""INSERT INTO profile (user_id, photo, description, favorite_games)
                 VALUES (?, ?, ?, ?)""", 
                 (user_id, "", "", ""))
     conn.commit()
@@ -108,6 +109,7 @@ def get_terms():
 @app.get("/logout/")
 def get_logout():
     logout_user()
+    session.pop("user_id", None)   #? Delete Session user_id
     session.pop("username", None)   #? Delete Session username
     session.pop("password", None)   #? Delete Session password
     return redirect(url_for("get_games"))

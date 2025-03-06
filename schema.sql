@@ -14,9 +14,11 @@ CREATE TABLE IF NOT EXISTS profile (
 );
 
 CREATE TABLE IF NOT EXISTS feedback (
-    id INTEGER PRIMARY KEY,
+    feedback_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
     text TEXT NOT NULL,
-    rating INTEGER NOT NULL
+    rating INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS favorite_games (

@@ -92,10 +92,9 @@ def post_edit_profile():
     conn.close()
     return redirect(url_for("get_profile"))
 
-@app.post("/delete_account/")
+@app.post("/delete_account/<int:user_id>")
 @login_required
-def delete_account():
-    user_id = current_user.user_id
+def delete_account(user_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("PRAGMA foreign_keys = ON;")
@@ -103,4 +102,4 @@ def delete_account():
     conn.commit()
     conn.close()
     logout_user()
-    return redirect(url_for("get_login"))
+    return redirect(url_for("get_admin"))

@@ -1,0 +1,40 @@
+.hero-body {
+	background: linear-gradient(135deg, #4a6bff, #6c63ff);
+}
+
+.admin-card {
+	border-radius: 0.5rem;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.fade-in {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.rating-square {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	font-size: 18px;
+	border-radius: 5px;
+	margin: 2px;
+}
+
+.rating-square.positive {
+	background-color: green;
+	color: white;
+}
+
+.rating-square.negative {
+	background-color: red;
+	color: white;
+}
