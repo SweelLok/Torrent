@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for
+from flask_login import login_required
 
 from app import app
 
@@ -10,3 +11,8 @@ def get_start():
 @app.get("/about/")
 def get_about():
     return render_template("about.html")
+
+@app.get("/swagger/")
+@login_required
+def get_swagger():
+    return(url_for("swagger_ui.show"))
