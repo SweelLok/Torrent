@@ -5,7 +5,6 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_compress import Compress
 from flask_session import Session
-from flask_swagger_ui import get_swaggerui_blueprint
 
 from connection import create_tables
 
@@ -14,19 +13,6 @@ app = Flask(__name__)           #? Flask configuration
 Compress(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-SWAGGER_URL = "/swagger/"                         #? Swagger configuration
-API_URL = "/static/swagger/swagger.json"
-
-swaggerui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': "Games"
-    }
-)
-
-app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 app.config["SECRET_KEY"] = os.urandom(24)                           #? Session configuration
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)

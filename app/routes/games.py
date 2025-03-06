@@ -34,12 +34,15 @@ def get_games():
         total_results = response.json().get("count", 0)
         total_pages = (total_results // 21) + (1 if total_results % 21 > 0 else 0)
         
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        favorite_games = cursor.execute("SELECT game_id FROM favorite_games WHERE user_id = ?", (current_user.user_id,)).fetchall()
-        favorite_game_ids = [game["game_id"] for game in favorite_games]
+        if current_user.is_authenticated:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            favorite_games = cursor.execute("SELECT game_id FROM favorite_games WHERE user_id = ?", (current_user.user_id,)).fetchall()
+            favorite_game_ids = [game["game_id"] for game in favorite_games]
         
-        return render_template("menu.html", games=games, page=page, total_pages=total_pages, max=max, min=min, query=query, favorite_game_ids=favorite_game_ids)
+            return render_template("menu.html", games=games, page=page, total_pages=total_pages, max=max, min=min, query=query, favorite_game_ids=favorite_game_ids)
+        
+        return render_template("menu.html", games=games, page=page, total_pages=total_pages, max=max, min=min, query=query)
     
     return render_template("menu.html", games=[], page=page, total_pages=0, max=max, min=min, query=query)
 

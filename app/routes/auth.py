@@ -110,4 +110,4 @@ def get_logout():
     logout_user()
     session.pop("username", None)   #? Delete Session username
     session.pop("password", None)   #? Delete Session password
-    return redirect(url_for("get_login"))
+    return redirect(url_for("get_games"))
