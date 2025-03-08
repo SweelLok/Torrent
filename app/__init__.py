@@ -6,8 +6,6 @@ from flask_cors import CORS
 from flask_login import LoginManager
 from flask_compress import Compress
 from flask_session import Session
-from flasgger import Swagger
-from flask_basicauth import BasicAuth
 
 from connection import create_tables
 
