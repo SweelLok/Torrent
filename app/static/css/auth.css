@@ -1,0 +1,53 @@
+body {
+	background: linear-gradient(135deg, #667eea, #764ba2);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+.auth-container {
+	background: white;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	color: black;
+	width: 350px;
+	text-align: center;
+}
+
+.auth-container h2 {
+	margin-bottom: 20px;
+}
+
+.auth-container input {
+	margin-bottom: 15px;
+}
+
+.social-login {
+	margin-top: 15px;
+}
+
+.social-login button {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+header {
+	background: #4a4a4a;
+	width: 100%;
+	padding: 15px;
+	text-align: center;
+}
+
+footer {
+	background: #4a4a4a;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}

@@ -4,55 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-		<link rel="stylesheet" href="../static/css/login.css">
-		<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-		<script src="../static/js/login.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/auth.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container">
-                <div class="columns is-centered">
-                    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                        <div class="login-card fade-in">
-                            <h1 class="title has-text-centered has-text-primary mb-5">Login</h1>
-                            {% if error_message %}
-                            <div class="notification is-danger">
-                                {{ error_message }}
-                            </div>
-                            {% endif %}
-                            <form action="{{ url_for('post_login') }}" method="post">
-                                <div class="field">
-                                    <label for="username" class="label">Name</label>
-                                    <div class="control has-icons-left">
-                                        <input type="name" id="username" name="username" placeholder="e.g. Alex Smith" class="input" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label for="password" class="label">Password</label>
-                                    <div class="control has-icons-left">
-                                        <input type="password" id="password" name="password" placeholder="********" class="input" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-lock"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <button class="button is-primary is-fullwidth" type="submit">Login</button>
-                                </div>
-                            </form>
-                            <div class="has-text-centered mt-4">
-                                <p>Don't have an account? <a href="{{ url_for('get_signup') }}" class="has-text-primary">Sign up</a></p>
-                            </div>
-                        </div>
-                    </div>
+    <main>
+        <div class="auth-container">
+            <hr>
+            <h2>Login</h2>
+            {% if error_message %}
+                <div class="notification is-danger">
+                    {{ error_message }}
                 </div>
+            {% endif %}
+            <form action="{{ url_for('post_login') }}" method="POST">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="*******" required>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="has-text-centered mt-4">
+                <p>Already have an account? <a href="{{ url_for('get_signup') }}" class="has-text-primary">Signup</a></p>
             </div>
         </div>
-    </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Nazarka_and_Vadimka corporated</p>
+    </footer>
 </body>
 </html>
