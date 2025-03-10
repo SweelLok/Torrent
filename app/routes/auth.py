@@ -1,5 +1,3 @@
-import sqlite3
-
 from flask import render_template, request, url_for, redirect, session
 from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash

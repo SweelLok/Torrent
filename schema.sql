@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS profile (
       user_id INTEGER NOT NULL UNIQUE,
       photo TEXT,
       description TEXT,
-      favorite_games TEXT,
       FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
