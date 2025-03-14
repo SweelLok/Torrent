@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
       user_id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
       username TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL
+      gmail TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      email_verified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS profile (

@@ -20,6 +20,6 @@ def send_email(from_addrs, name, message):
     message = f"From: {name} <{from_addrs}>\nTo: {to_addrs}\nSubject: {subject}\n\n{message}"
 
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    server.login(from_addrs, "ttnq zxtl dldo pgrc")     #? Google tokin
+    server.login(from_addrs, "tjyk bunj mqqp iurk ")     #? Google tokin
     server.sendmail(from_addrs, to_addrs, message)
     server.quit()
