@@ -68,12 +68,17 @@
       </div>
     </div>
   </nav>
+
 {% endblock %}
   
-<section class="hero is-fullheight-with-navbar">
-  {% block content %}
-  {% endblock content %}
-</section>
+<div class="wrapper">
+  <div class="main-content">
+      {% block content %}{% endblock %}
+  </div>
+  <footer>
+      <p>© 2025 Nazarka_and_Vadimka corporated</p>
+  </footer>
+</div>
   
 </body>
 </html>

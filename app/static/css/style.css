@@ -149,3 +149,24 @@
 .hero {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
+
+footer {
+  color: white;
+	background: #4a4a4a;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}

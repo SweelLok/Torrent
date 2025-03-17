@@ -4,28 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification Code</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="../static/css/verification.css">
+    <script src="../static/js/verification.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Verification Code</h2>
-        <b>Thank you for signing up! A verification code has been sent to your email address. Please enter the code below to complete your registration.</b>
-
-        {% if error_message %}
-            <div class="error-message">
-                <p>{{ error_message }}</p>
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-centered has-text-white">Verification Code</h1>
             </div>
-        {% endif %}
+        </div>
+    </section>
 
-        <form action="{{ url_for('post_verify_code') }}" method="POST">
-            <label for="verification_code">Enter Verification Code:</label>
-            <input type="text" id="verification_code" name="verification_code" required>
-            <button type="submit">Verify Code</button>
-        </form>
-
-        <p>Didn't receive the code? <a href="{{ url_for('get_signup') }}">Resend</a></p>
-    </div>
-
+    <section class="section">
+        <div class="container">
+            <div class="verification-card fade-in">
+                <div class="content has-text-centered">
+                    <h2 class="title is-4">Verify Your Account</h2>
+                    <p class="mb-5">Thank you for signing up! A verification code has been sent to your email address. Please enter the code below to complete your registration.</p>
+                    
+                    {% if error_message %}
+                        <div class="notification is-danger">
+                            <p>{{ error_message }}</p>
+                        </div>
+                    {% endif %}
+                    
+                    <form action="{{ url_for('post_verify_code') }}" method="POST">
+                        <div class="field">
+                            <label class="label" for="verification_code">Enter Verification Code:</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="812491" id="verification_code" name="verification_code" required>
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <div class="control">
+                                <button type="submit" class="button is-primary is-fullwidth">Verify Code</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-5">
+                        <p>Didn't receive the code?</p>
+                        <form action="{{ url_for('post_resend_code') }}" method="post">
+                            <button type="submit" class="link-button">Resend</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
