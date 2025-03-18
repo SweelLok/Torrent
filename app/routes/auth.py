@@ -4,9 +4,12 @@ import random
 from flask import render_template, request, url_for, redirect, session
 from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from connection import get_db_connection
 from app import app, login_manager
+from ..config import TOKEN
 from ..models import User
 
 
@@ -160,18 +163,36 @@ def post_resend_code():
 
 def send_email(to_addrs, code):
     from_addrs = "hktnadm@gmail.com"
-    subject = "Welcome to Our Service. That's your security code:"
-    body = f"Thank you for signing up! Your verification code is: {code}"
-    message = f"From: {from_addrs}\nTo: {to_addrs}\nSubject: {subject}\n\n{body}"
+    subject = "Welcome to Our Service - Your Security Code"
+    
+    body = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; text-align: center;">
+        <h2 style="color: #00d1b2;">Welcome to Our Service!</h2>
+        <p style="font-size: 18px;">Thank you for signing up! Your verification code is:</p>
+        <p style="font-size: 22px; font-weight: bold; color: #000000;">{code}</p>
+        <p>If you didn't request this, please ignore this email.</p>
+        <hr style="border: 1px solid #ddd;">
+        <p style="font-size: 12px; color: gray;">This is an automated message. Please do not reply.</p>
+    </body>
+    </html>
+    """
+    
+    message = MIMEMultipart()
+    message["From"] = from_addrs
+    message["To"] = to_addrs
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "html"))
     
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
-        server.login(from_addrs, "tvko chtq awmb dttp")
-        server.sendmail(from_addrs, to_addrs, message)
+        server.login(from_addrs, TOKEN)
+        server.send_message(message)
         server.quit()
     except Exception as e:
         print("Error sending email:", e)
+
 
 def generate_verification_code(length=6):
     return "".join(str(random.randint(0, 9)) for _ in range(length))
